@@ -2,3 +2,5 @@
 tests
 .quizica
 *.pyc
+
+src/QuizletAPI/__pycache__
