@@ -11,8 +11,9 @@ class User():
     def login(self):
         url = "https://quizlet.com/login"
         cookies = dictToHeader(self.cookies)
+        print(cookies)
         querystring = {"redir":"https://quizlet.com/latest"}
-        payload = "{\"password\":\"Larry1102\",\"username\":\"larryrennoldson\"}"
+        payload = "{\"password\":\""+self.password+"\",\"username\":\""+self.username+"\"}"
         headers = {
             'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:101.0) Gecko/20100101 Firefox/101.0",
             'Accept': "application/json",
@@ -32,5 +33,11 @@ class User():
             'TE': "trailers"
             }
         response = requests.request("POST", url, data=payload, headers=headers, params=querystring)
-        print(response.json())
-        return response.cookies.get_dict()
+        if response.status_code == 200:
+            print(f'Sucsess={response.json().get("success")}')
+            return response.cookies.get_dict()
+        elif response.status_code == 403:
+            print('Captcha has been triggered, please try again later.') 
+        else:
+            print('Unknown error.')
+        return None
