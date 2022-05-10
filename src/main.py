@@ -14,6 +14,7 @@ url = input('Course URL:')
 data = seneca.course.getCourseInfo(url, user)
 NumberOfModules = 0
 Cards = {}
+title = data.get('title').replace(' HyperFlashcards', '')
 contents = data.get('contents')
 Question = 0
 for i in contents:
@@ -25,6 +26,6 @@ for i in contents:
                  
 MySet = client.Set(client.user.createSet())
 MySet.addCards(Cards)
-MySet.setTitle('Transport')
+MySet.setTitle(title)
 print(MySet.publish())
 MySet.saveToFolder(FOLDERS['Biology'])
