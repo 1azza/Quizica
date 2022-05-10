@@ -4,7 +4,17 @@ class setGenerator:
     def __init__(self, setID) -> None:
         self.setID = setID
         self.content = []
-       
+    def setTitle(self, title):
+        payload = {
+            "data": [
+                    {
+                        "id": self.setID,
+                        "title": title
+                    }
+                ],
+                "requestId": "1652209390351:set:op-seq-1"
+            }
+        return json.dumps(payload)
     def addCard(self, Term, Defenition, number=None):
         if number == None:
             number = len(self.content)

@@ -11,10 +11,15 @@ class Set():
             'Cookie': dictToHeader(self.cookies),
             }
         self.Myset = setGenerator(set_id)
-
-        
+    def setTitle(self, Title):
+        url = "https://quizlet.com/webapi/3.2/sets/save"
+        querystring = {"_method":"PUT"}
+        payload = self.Myset.setTitle(Title)
+        response = requests.request("POST", url, data=payload, headers=self.headers, params=querystring)
+        return True
+    
+    
     def addCards(self, *args):
-        
         for arg in args: # arg is a dict
             for key in arg:
                 self.Myset.addCard(key, arg[key])
@@ -22,7 +27,10 @@ class Set():
         url = "https://quizlet.com/webapi/3.2/terms/save"
         querystring = {"_method":"PUT"}
         payload = self.Myset.build()
-        pprint(payload)
         response = requests.request("POST", url, data=payload, headers=self.headers, params=querystring)
-        return response.json()
+        data = {}
+        for i in response.json().get('responses'):
+            for i in i.get('models').get('term'):
+                data[i.get('word')] = i.get('id')
+        return data
     
