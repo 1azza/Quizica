@@ -4,3 +4,4 @@ tests
 *.pyc
 
 src/QuizletAPI/__pycache__
+src/tem.py
