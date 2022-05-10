@@ -1,0 +1,2 @@
+client = Quizlet('USERNAME', 'PASSWORD')
+user = seneca.User('USRENAME', 'PASSWORD')

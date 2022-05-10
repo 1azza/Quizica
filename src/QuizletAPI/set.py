@@ -84,4 +84,3 @@ class Set():
                 }
         response = requests.request("POST", url, data=json.dumps(payload), headers=self.headers)
 
-        print(response.text)

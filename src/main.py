@@ -4,9 +4,8 @@ import logging
 import time
 import seneca
 
-client = Quizlet('larryrennoldson', 'Larry1102')
-user = seneca.User('017437@brgsmail.org.uk', 'Larry1102')
-
+client = Quizlet('USERNAME', 'PASSWORD')
+user = seneca.User('USRENAME', 'PASSWORD')
 FOLDERS = {
     'Biology': 104164961,
 }
@@ -29,3 +28,4 @@ MySet.addCards(Cards)
 MySet.setTitle(title)
 print(MySet.publish())
 MySet.saveToFolder(FOLDERS['Biology'])
+input('Press ENTER to exit')
