@@ -1,6 +1,6 @@
 import requests
 from pprint import pprint
-from utils.CookieManipulation import dictToHeader, headerToDict
+from .utils.CookieManipulation import dictToHeader, headerToDict
 from .setGen import setGenerator
 import json
 class Set():

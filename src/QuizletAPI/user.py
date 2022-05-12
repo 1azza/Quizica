@@ -1,7 +1,7 @@
 import requests
 from pprint import pprint
 import logging
-from utils.CookieManipulation import dictToHeader, headerToDict
+from .utils.CookieManipulation import dictToHeader, headerToDict
 import json
 class User():
     def __init__(self, cookies, username, password):
@@ -21,22 +21,26 @@ class User():
             }
         response = requests.request("POST", url, data=payload, headers=self.headers, params=querystring)
         if response.status_code == 200:
-            print(f'Sucsess={response.json().get("success")}')
             qlts = response.cookies.get_dict().get('qlts')
             self.cookies['qlts'] = qlts
             self.headers['Cookie'] = dictToHeader(self.cookies)
+            print('Login Successful')
             return qlts
-            
-            
         elif response.status_code == 403:
             print('Captcha has been triggered, please try again later.') 
         else:
             print('Unknown error.')
         return False
+    
+    
     def getFolders(self):
-
-        url = "https://quizlet.com/gb/698456950/eukaryotes-prokaryotes-flash-cards"
-        querystring = {"funnelUUID":"9811eadf-f14b-4add-9831-f7bdeb24398a"}
+        print(dictToHeader(self.cookies))
+        url = f"https://quizlet.com/webapi/3.2/folders"
+        querystring = {'filters[isDeleted]' : 'false',
+                        'filters[isHidden]' : 'false',
+                        'filters[personId]' : '256998883',
+                        'page' : '1'
+                        }
         payload = ""
         response = requests.request("GET", url, data=payload, headers=self.headers, params=querystring)
         print(response.text)
