@@ -6,23 +6,23 @@ import seneca
 import webbrowser
 import os
 from dotenv import load_dotenv
-#Get password from enviroment variables
+# Get password from enviroment variables
 load_dotenv()
 PASSWORD = os.getenv('PASSWORD')
 
 
-#Login to Quizlet and Seneca
+# Login to Quizlet and Seneca
 client = Quizlet('larryrennoldson', PASSWORD)
 user = seneca.User('017437@brgsmail.org.uk', PASSWORD)
 
-#Recieve course
+# Recieve course
 url = input('Course URL:')
 
-#Download seneca course
+# Download seneca course
 print('Downloading course...')
 data = seneca.course.getCourseInfo(url, user)
 
-#Initialise set
+# Initialise set
 print('Initialising set...')
 id = client.user.createSet()
 MySet = client.Set(id)
@@ -32,7 +32,7 @@ FOLDERS = {
     'Biology': 104164961,
 }
 
-#Parse course data
+# Parse course data
 print('Generating flashcards...')
 NumberOfModules = 0
 Cards = {}
@@ -46,19 +46,19 @@ for i in contents:
         if i.get('moduleType') == "hyper-flashcard":
             content = i.get('content')
             Cards[content.get('question')] = content.get('answer')
-            
-#cards to set
+
+# cards to set
 MySet.addCards(Cards)
 MySet.setTitle(title)
 
-#Publsih set
+# Publsih set
 print('Publishing set...')
 link = MySet.publish()
 
-#Save to folder
+# Save to folder
 MySet.saveToFolder(FOLDERS['Biology'])
 print(link)
 x = input('Press 1 to open in browser...')
-if x == '1':   
- webbrowser.open_new(link)   
+if x == '1':
+    webbrowser.open_new(link)
 input('Press ENTER to exit...')
