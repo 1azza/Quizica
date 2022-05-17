@@ -17,9 +17,10 @@ class Quizlet:
                         'app_session_id': 'b21ca688-d008-42af-900f-32eca19e164f',
                         '__cf_bm': self.cfbm,
                         '_gcl_au': '1.1.1553204724.1652035066',  # Not sure if this is needed
-                        'OptanonConsentisGpcEnabled': '0&datestamp=Thur+May+12+2022+18%3A40%3A54+GMT%2B0100+(British+Summer+Time)&version=6.34.0&isIABGlobal=false&hosts=&consentId=ffbfe21d-9f20-460a-86ce-e6063dae6088&interactionCount=2&landingPath=NotLandingPage&groups=C0001%3A1%2CC0002%3A1%2CC0004%3A1%2CN01%3A1%2CSTACK42%3A1&AwaitingReconsent=false&geolocation=GB%3BENG',
                         }
         self.user = User(self.cookies, username, password)
+        #Sync cookies
+        self.cookies = self.user.cookies
         self.__Getqlts()
         Set.cookies = self.cookies
         self.Set = Set

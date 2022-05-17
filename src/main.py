@@ -1,11 +1,8 @@
-from QuizletAPI import Quizlet
-from pprint import pprint
-import logging
-import time
-import seneca
 import webbrowser
 import os
 from dotenv import load_dotenv
+import seneca
+from QuizletAPI import Quizlet
 # Get password from enviroment variables
 load_dotenv()
 PASSWORD = os.getenv('PASSWORD')
@@ -24,9 +21,9 @@ data = seneca.course.getCourseInfo(url, user)
 
 # Initialise set
 print('Initialising set...')
-id = client.user.createSet()
-MySet = client.Set(id)
-print(f'Set ID: {id}\n')
+SetID = client.user.createSet()
+MySet = client.Set(SetID)
+print(f'Set ID: {SetID}\n')
 
 FOLDERS = {
     'Biology': 104164961,
@@ -34,17 +31,15 @@ FOLDERS = {
 
 # Parse course data
 print('Generating flashcards...')
-NumberOfModules = 0
 Cards = {}
 title = data.get('title').replace(' HyperFlashcards', '')
 contents = data.get('contents')
-Question = 0
 print('Generating flashcards...')
 for i in contents:
     contentModules = i.get('contentModules')
-    for i in contentModules:
-        if i.get('moduleType') == "hyper-flashcard":
-            content = i.get('content')
+    for Module in contentModules:
+        if Module.get('moduleType') == "hyper-flashcard":
+            content = Module.get('content')
             Cards[content.get('question')] = content.get('answer')
 
 # cards to set
